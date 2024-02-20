@@ -40,4 +40,12 @@ function displayTickets() {
     ticketList.innerHTML = "";
     tickets.forEach(ticket => {
         const listItem = document.createElement('li');
-        for (const emailElement of listItem.textContent = 'Velg film: ${ticket
+        listItem.textContent = 'Velg film: ${ticket.movie}, Antall: ${ticket.quantity}, Navn:${ticket.name}, Etternavn:${ticket.surname}, Telefonnr: ${ticket.phone}, Epost: ${ticket.email}`;
+
+            ticketList.appendChild(listItem);
+    });
+}
+        function deleteAllTickets(){
+            tickets = [];
+            displayTickets();
+    }
