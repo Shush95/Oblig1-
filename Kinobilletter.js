@@ -13,7 +13,7 @@ function buyTicket (){
     const phone = document.getElementById('phone').value.trim();
 
     const email = document.getElementById('email').value.trim();
-   if(name === ""){
+   if(!movie === ""|| name === ""|| surname === ""|| phone === "" || email === ""|| isNaN(quantity) <= 0){
        alert("vennligst fyll ut feltene korrekt");
        return;
    }
