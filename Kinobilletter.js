@@ -1,71 +1,89 @@
-let tickets = [];{
 
-}
+
 function buyTicket (){
-    const movie = document.getElementById('movie').value.trim();
+    const movie = $("#movie").val();
+    const antall = $("#antall").val();
+    const name = $("#name").val();
+    const surname = $("#surname").val();
+    const phone = $("#phone").val();
+    const email = $("#email").val();
 
-    const quantity =parseInt(document.getElementById('quantity').value);
+    $("#movie").removeClass(" error");
+    $("#antall").removeClass(" error");
+    $("#name").removeClass(" error");
+    $("#surname").removeClass(" error");
+    $("#phone").removeClass(" error");
+    $("#email").removeClass(" error");
 
-    const name = document.getElementById('name').value.trim();
 
-    const surname = document.getElementById('surname').value.trim();
-
-    const phone = document.getElementById('phone').value.trim();
-
-    const email = document.getElementById('email').value.trim();
-   if (!movie===" ") {
-       alert(" Vennligst velg en av valgene ");
+   if (!movie) {
+       $("#film").addClass(" error");
        return;
    }
-   if (name === ""){
-       alert ("Vennligst fyll ut dette feltet");
+    if (!quantity) {
+        $("#quantity").addClass(" error");
+        return;
+    }
+       if (!name) {
+            $("#name").addClass(" error");
        return;
     }
-    if(surname === ""){
-        alert ("Vennligst fyll ut feltet for å gå videre");
+
+    if (!surname) {
+        $("#surname").addClass(" error");
         return;
     }
-    if (phone === ""){
-        alert("Vennligst oppgi et gyldig nummer");
+
+    if (!phone) {
+        $("#phone").addClass(" error");
         return;
     }
-    if (email === ""){
-        alert ("Feltet må fyllest ut riktig for å gå videre");
+    if (!email) {
+        $("#email").addClass(" error");
         return;
     }
-    if(isNaN(quantity) <= 0){
-       alert("Du må oppgi større antall enn 0");
-       return;
-   }
+    else {
 
  const ticket = {
      movie: movie,
-     quantity: quantity,
+     antall: antall,
      name: name,
      surname:surname,
      phone: phone,
-     email: email
- };
- tickets.push(ticket);
- displayTickets();
- document.getElementById(movie).value= " ";
-    document.getElementById(quantity).value= " ";
-    document.getElementById(name).value= " ";
-    document.getElementById(surname).value= " ";
-    document.getElementById(phone).value= " ";
-    document.getElementById(email).value= " ";
-}
-function displayTickets() {
-    const  ticketList = document.getElementById('ticketList');
-    ticketList.innerHTML = "";
-    tickets.forEach(ticket => {
-        const listItem = document.createElement('li');
-        listItem.textContent = 'Velg film: ${ticket.movie}, Antall: ${ticket.quantity}, Navn:${ticket.name}, Etternavn:${ticket.surname}, Telefonnr: ${ticket.phone}, Epost: ${ticket.email}`;
+     email: email,
+ }
 
-            ticketList.appendChild(listItem);
-    });
-}
-        function deleteAllTickets(){
-            tickets = [];
-            displayTickets();
+        $.post("/saveTicket", ticket, function (customer) {
+            let ut = "<table class='table table-striped'>" +
+                "<tr><th>Name</th>" +
+                "<th>Movie</th>" +
+                "<th>Quantity</th>" +
+                "<th>Email</th>" +
+                "<th>Phone</th></tr>";
+            for (let ticket of customer) {
+                ut += "<tr>" +
+                    "   <td>" + ticket.name + " " + ticket.surname + "</td>" +
+                    "   <td>" + ticket.movie + "</td>" +
+                    "   <td>" + ticket.antall + "</td>" +
+                    "   <td>" + ticket.email + "</td>" +
+                    "   <td>" + ticket.phone + "</td></tr>";
+            }
+            ut += "</table>"
+
+            $("#result").html(ut);
+        })
+
+        $("#movie").val("");
+        $("#name").val("");
+        $("#surname").val("");
+        $("#phone").val("");
+        $("#email").val("");
+        $("#antall").val("");
     }
+}
+
+function deleteTicket() {
+    $.get("/slett", function () {
+        $("#result").html("");
+    })
+}

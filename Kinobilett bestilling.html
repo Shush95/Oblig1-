@@ -2,55 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Bestilling av kinobilleter </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestilling av kinobilleter</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Egendefinert stil */
+        body {
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-<h1> Bestilling av kinobilletter</h1>
-<form id="ticketForm">
-    <label for="movie">Velg film:</label>
+<div class="container">
+    <h1>Bestilling av kinobilletter</h1>
+    <form id="ticketForm">
+        <div class="form-group">
+            <label for="movie">Velg film:</label>
+            <select class="form-control" id="movie" name="movie">
+                <option>Velg film her</option>
+                <option>Komedie</option>
+                <option>Barnefilm</option>
+                <option>Cartoon</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="antall">Antall:</label>
+            <input type="number" class="form-control" id="antall" min="1" max="20" required>
+        </div>
+        <div class="form-group">
+            <label for="name">Navn:</label>
+            <input type="text" class="form-control" id="name" required>
+        </div>
+        <div class="form-group">
+            <label for="surname">Etternavn:</label>
+            <input type="text" class="form-control" id="surname" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Telefonnr:</label>
+            <input type="tel" class="form-control" id="phone" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Epost:</label>
+            <input type="email" class="form-control" id="email" required>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="buyTicket()">Kjøp billett</button>
+    </form>
 
-<select id="movie" name="movie">
-    <option>Velg film her</option>
-    <option> Komedie</option>
-    <option> Barnefilm</option>
-    <option>Cartoon</option>
-</select>
+    <h2>Alle billetter</h2>
+    <ul id="ticketList" class="list-group"></ul>
+    <button type="button" class="btn btn-danger" onclick="deleteAllTickets()">Slett alle billettene</button>
+</div>
 
-    <br>
-
-    <label for="quantity">Antall:</label>
-    <input type="number" id="quantity" min="1" max="20" required>
-
-    <br>
-
-
-    <label for="name">Navn:</label>
-    <input type="text" id="name" required>
-
-    <br>
-
-    <label for="surname">Etternvan:</label>
-    <input type="text" id="surname" required>
-
-    <br>
-
-
-    <label for="phone">Telefonnr:</label>
-    <input type="tel" id="phone" required>
-
-    <br>
-
-    <label for="email">Epost:</label>
-    <input type="text" id="email" required>
-
-    <br>
-
-    <button type="button" onclick="buyTicket()">Kjøp billett</button>
-
-</form>
-
-<h2>Alle billetter</h2>
-<ul id="ticketList"></ul>
-<button onclick="deleteAllTickets()" >Slett alle billettene </button>
-
-<script src="Kinobilletter.js"</script>
+<script src="Kinobilletter.js"></script>
+</body>
+</html>
